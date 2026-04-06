@@ -97,7 +97,7 @@ function stopTimer() {
 
     clearInterval(state.timer.intervalId);
     state.timer.isRunning = false;
-
+    saveData();
     startBtn.disabled = false;
     stopBtn.disabled = true;
 }
@@ -204,8 +204,7 @@ function logTime(taskId, seconds) {
         });
     }
 
-    // Save every 10 seconds to reduce IO, or on stop
-    if (seconds % 10 === 0) saveData();
+    saveData();
 }
 
 // --- Notification Logic ---
@@ -379,3 +378,4 @@ function setupEventListeners() {
 
 // --- Start App ---
 window.onload = init;
+window.addEventListener('beforeunload', saveData);
